@@ -30,3 +30,7 @@ class Wallet(object):
             raise InsufficientAmount(f"Not enough available to spend {amount}")
 
         self.balance -= amount
+
+    def get_balance(self):
+        """Gets the current balance of the wallet"""
+        return self.balance
