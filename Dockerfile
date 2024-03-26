@@ -1,19 +1,21 @@
 FROM python:3.9
 
-USER nonroot
+RUN useradd -ms /bin/bash newuser
+USER newuser
+WORKDIR /home/newuser/code
 
-WORKDIR /code
+WORKDIR /home/newuser/code
 
-COPY ./setup.py /code/setup.py
+COPY ./setup.py /home/newuser/code/setup.py
 
-COPY ./requirements.txt /code/requirements.txt
+COPY ./requirements.txt /home/newuser/code/requirements.txt
 
-COPY ./README.md /code/README.md
+COPY ./README.md /home/newuser/code/README.md
 
-COPY ./src /code/src
+COPY ./src /home/newuser/code/src
 
-RUN pip install /code
+RUN pip install /home/newuser/code
 
-COPY ./controller /code/controller
+COPY ./controller /home/newuser/code/controller
 
 CMD ["uvicorn", "controller.controller:app", "--host", "0.0.0.0", "--port", "80"]
